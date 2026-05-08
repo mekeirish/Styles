@@ -1,1 +1,355 @@
 
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultimate UI Styles Library</title>
+    <style>
+        /* === BASE & LAYOUT === */
+        body { font-family: 'Segoe UI', system-ui, sans-serif; margin: 0; padding: 10px; background: #b0b5bc; display: flex; flex-direction: column; align-items: center; }
+        .phone { width: 360px; height: 740px; background: #fff; border-radius: 40px; border: 12px solid #222; box-shadow: 0 25px 50px rgba(0,0,0,0.3); display: flex; flex-direction: column; overflow: hidden; position: relative; }
+        
+        /* TABS (Onglets) */
+        .tabs { display: flex; overflow-x: auto; scrollbar-width: none; background: #fff; padding: 15px 10px 10px; border-bottom: 1px solid #ddd; z-index: 10; }
+        .tabs::-webkit-scrollbar { display: none; }
+        .tab-btn { padding: 8px 16px; border: none; background: #f0f0f0; border-radius: 20px; margin-right: 8px; white-space: nowrap; font-weight: 600; color: #555; cursor: pointer; }
+        .tab-btn.active { background: #222; color: #fff; }
+
+        /* SWIPE CONTAINER */
+        .swipe-container { flex: 1; display: flex; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; scroll-behavior: smooth; scrollbar-width: none; }
+        .swipe-container::-webkit-scrollbar { display: none; }
+        .page { min-width: 100%; height: 100%; overflow-y: auto; scroll-snap-align: start; padding: 20px; box-sizing: border-box; padding-bottom: 80px; }
+
+        /* GLOBALS POUR LES ÉLÉMENTS */
+        .legend { font-size: 0.7rem; text-transform: uppercase; opacity: 0.8; margin-top: 15px; margin-bottom: 4px; display: block; font-weight: bold; letter-spacing: 0.5px; }
+        .btn-base { width: 100%; padding: 12px; font-family: inherit; font-size: 1rem; cursor: pointer; box-sizing: border-box; text-align: center; transition: all 0.2s; display: flex; justify-content: center; align-items: center; gap: 8px; }
+        .btn-fab { width: 56px; height: 56px; padding: 0; border-radius: 50%; font-size: 1.5rem; margin: 0 auto; }
+        .input-base { width: 100%; padding: 12px; font-family: inherit; font-size: 1rem; box-sizing: border-box; margin-top: 15px; }
+
+        /* ========================================= */
+        /* 1. NEUMORPHISM                            */
+        /* ========================================= */
+        .p-neu { background: #e0e5ec; color: #4a5568; }
+        .neu-btn { border: none; background: #e0e5ec; color: #4a5568; font-weight: bold; border-radius: 12px; box-shadow: 7px 7px 15px rgba(163,177,198,0.6), -7px -7px 15px rgba(255,255,255, 0.6); }
+        .neu-btn.outline { box-shadow: inset 2px 2px 5px rgba(163,177,198,0.3), inset -2px -2px 5px rgba(255,255,255, 0.5); border: 2px solid rgba(255,255,255,0.2); }
+        .neu-btn.ghost { box-shadow: none; color: #6b7a90; }
+        .neu-btn.pill { border-radius: 50px; }
+        .neu-btn:disabled { opacity: 0.5; box-shadow: none; }
+        .neu-input { border: none; border-radius: 12px; background: #e0e5ec; box-shadow: inset 5px 5px 10px #b8bec5, inset -5px -5px 10px #ffffff; outline: none; }
+
+        /* ========================================= */
+        /* 2. GLASSMORPHISM                          */
+        /* ========================================= */
+        .p-glass { background: radial-gradient(circle at top left, #ff6a00, #ee0979); color: #fff; }
+        .glass-btn { background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.4); border-radius: 12px; color: #fff; font-weight: bold; }
+        .glass-btn.outline { background: transparent; border: 2px solid rgba(255,255,255,0.6); }
+        .glass-btn.ghost { background: transparent; border: none; text-decoration: underline; }
+        .glass-btn.pill { border-radius: 50px; }
+        .glass-btn:disabled { background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.3); border-color: transparent; }
+        .glass-input { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); color: white; border-radius: 12px; }
+        .glass-input::placeholder { color: rgba(255,255,255,0.6); }
+
+        /* ========================================= */
+        /* 3. SKEUOMORPHISM                          */
+        /* ========================================= */
+        .p-skeuo { background: url('https://www.transparenttextures.com/patterns/wood-pattern.png'), #8b5a2b; color: #fff; text-shadow: 0 1px 1px #000; }
+        .skeuo-btn { background: linear-gradient(to bottom, #d3d3d3 0%, #8c8c8c 100%); border: 1px solid #333; color: #222; font-weight: bold; text-shadow: 0 1px 0 #eee; border-radius: 8px; box-shadow: inset 0 1px 0 #fff, 0 4px 5px rgba(0,0,0,0.6); }
+        .skeuo-btn.outline { background: transparent; color: #fff; border: 2px inset #aaa; box-shadow: none; text-shadow: 0 1px 1px #000; }
+        .skeuo-btn.ghost { background: transparent; border: none; box-shadow: none; color: #eee; }
+        .skeuo-btn.pill { border-radius: 25px; }
+        .skeuo-btn:disabled { background: #555; color: #777; box-shadow: inset 0 1px 3px rgba(0,0,0,0.5); text-shadow: none; }
+        .skeuo-input { background: #eee; border: 2px inset #888; color: #222; text-shadow: none; border-radius: 6px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.4); }
+
+        /* ========================================= */
+        /* 4. NEOBRUTALISM                           */
+        /* ========================================= */
+        .p-brutal { background: #ffde59; color: #000; }
+        .brutal-btn { background: #ff914d; border: 3px solid #000; color: #000; font-weight: 900; border-radius: 0; box-shadow: 5px 5px 0 #000; text-transform: uppercase; }
+        .brutal-btn.outline { background: #fff; }
+        .brutal-btn.ghost { background: transparent; border: none; box-shadow: none; text-decoration: underline; text-underline-offset: 4px; border-bottom: 3px solid #000; }
+        .brutal-btn.pill { border-radius: 50px; }
+        .brutal-btn:disabled { background: #ccc; box-shadow: none; transform: translate(5px, 5px); }
+        .brutal-input { border: 3px solid #000; box-shadow: 4px 4px 0 #000; border-radius: 0; }
+
+        /* ========================================= */
+        /* 5. MATERIAL DESIGN                        */
+        /* ========================================= */
+        .p-material { background: #fafafa; color: #212121; }
+        .mat-btn { background: #6200ea; color: white; border: none; border-radius: 4px; font-weight: 500; text-transform: uppercase; box-shadow: 0 3px 1px -2px rgba(0,0,0,0.2), 0 2px 2px 0 rgba(0,0,0,0.14); }
+        .mat-btn.outline { background: transparent; color: #6200ea; border: 1px solid #e0e0e0; box-shadow: none; }
+        .mat-btn.ghost { background: transparent; color: #6200ea; box-shadow: none; border: none; }
+        .mat-btn.pill { border-radius: 50px; }
+        .mat-btn:disabled { background: #e0e0e0; color: #9e9e9e; box-shadow: none; }
+        .mat-input { background: #f5f5f5; border: none; border-bottom: 2px solid #6200ea; border-radius: 4px 4px 0 0; }
+
+        /* ========================================= */
+        /* 6. CYBERPUNK                              */
+        /* ========================================= */
+        .p-cyber { background: #0b0c10; color: #66fcf1; font-family: 'Courier New', monospace; }
+        .cyber-btn { background: rgba(102, 252, 241, 0.1); border: 2px solid #66fcf1; color: #66fcf1; text-transform: uppercase; font-weight: bold; box-shadow: 0 0 8px rgba(102, 252, 241, 0.4); clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px); }
+        .cyber-btn.outline { background: transparent; box-shadow: none; }
+        .cyber-btn.ghost { border: none; background: transparent; box-shadow: none; }
+        .cyber-btn.pill { clip-path: none; border-radius: 0; border-left: 5px solid #f0f; } /* Détourné pour cyberpunk */
+        .cyber-btn:disabled { border-color: #333; color: #555; box-shadow: none; }
+        .cyber-input { background: transparent; border: 1px solid #45a29e; color: #c5c6c7; border-left: 4px solid #f0f; }
+
+        /* ========================================= */
+        /* 7. FLAT DESIGN                            */
+        /* ========================================= */
+        .p-flat { background: #ecf0f1; color: #2c3e50; }
+        .flat-btn { background: #3498db; color: #fff; border: none; border-radius: 4px; font-weight: 600; }
+        .flat-btn.outline { background: transparent; border: 2px solid #3498db; color: #3498db; }
+        .flat-btn.ghost { background: transparent; border: none; color: #2980b9; }
+        .flat-btn.pill { border-radius: 50px; }
+        .flat-btn:disabled { background: #bdc3c7; color: #fff; }
+        .flat-input { border: 2px solid #bdc3c7; background: #fff; border-radius: 4px; color: #2c3e50; }
+
+        /* ========================================= */
+        /* 8. CORPORATE (Bootstrap-like)             */
+        /* ========================================= */
+        .p-corp { background: #fff; color: #333; font-family: Arial, sans-serif; }
+        .corp-btn { background: #0d6efd; color: #fff; border: 1px solid #0d6efd; border-radius: 6px; font-weight: 400; }
+        .corp-btn.outline { background: #fff; color: #0d6efd; border: 1px solid #0d6efd; }
+        .corp-btn.ghost { background: transparent; border: none; color: #0d6efd; }
+        .corp-btn.pill { border-radius: 50px; }
+        .corp-btn:disabled { background: #6ea8fe; border-color: #6ea8fe; }
+        .corp-input { border: 1px solid #ced4da; border-radius: 6px; background: #fff; }
+
+        /* ========================================= */
+        /* 9. PIXEL ART (8-Bit)                      */
+        /* ========================================= */
+        .p-pixel { background: #222; color: #fff; font-family: 'Courier New', monospace; }
+        .pixel-btn { background: #e52521; color: white; border: 4px solid #fff; border-image: url('data:image/svg+xml;utf8,<svg width="8" height="8" xmlns="http://www.w3.org/2000/svg"><path d="M2 0h4v2h2v4h-2v2H2V8H0V2h2z" fill="white"/></svg>') 2 stretch; font-weight: bold; text-transform: uppercase; }
+        .pixel-btn.outline { background: #000; border-image: url('data:image/svg+xml;utf8,<svg width="8" height="8" xmlns="http://www.w3.org/2000/svg"><path d="M2 0h4v2h2v4h-2v2H2V8H0V2h2z" fill="white"/></svg>') 2 stretch; color: #4af626; }
+        .pixel-btn.ghost { background: transparent; border: none; color: #ffeb3b; }
+        .pixel-btn.pill { border-radius: 0; } /* Pas de ronds en pixel art */
+        .pixel-btn:disabled { background: #555; color: #888; border-image: none; border: 4px solid #888; }
+        .pixel-input { background: #000; color: #4af626; border: 4px solid #fff; border-image: url('data:image/svg+xml;utf8,<svg width="8" height="8" xmlns="http://www.w3.org/2000/svg"><path d="M2 0h4v2h2v4h-2v2H2V8H0V2h2z" fill="white"/></svg>') 2 stretch; }
+
+        /* ========================================= */
+        /* 10. CLAYMORPHISM                          */
+        /* ========================================= */
+        .p-clay { background: #f1f3f6; color: #4a5568; }
+        .clay-btn { background: #ff7eb3; color: white; border: none; border-radius: 16px; font-weight: bold; box-shadow: 8px 8px 16px #d1d9e6, -8px -8px 16px #ffffff, inset 4px 4px 8px rgba(255,255,255,0.4), inset -4px -4px 8px rgba(0,0,0,0.1); }
+        .clay-btn.outline { background: #f1f3f6; color: #ff7eb3; box-shadow: 4px 4px 10px #d1d9e6, -4px -4px 10px #ffffff; }
+        .clay-btn.ghost { background: transparent; box-shadow: none; color: #ff7eb3; }
+        .clay-btn.pill { border-radius: 50px; }
+        .clay-btn:disabled { background: #e2e8f0; color: #a0aec0; box-shadow: inset 4px 4px 8px rgba(0,0,0,0.05); }
+        .clay-input { background: #f1f3f6; border: none; border-radius: 16px; box-shadow: inset 6px 6px 12px #d1d9e6, inset -6px -6px 12px #ffffff; }
+
+        /* ========================================= */
+        /* 11. MINIMALIST (Wireframe)                */
+        /* ========================================= */
+        .p-wire { background: #fff; color: #000; }
+        .wire-btn { background: #000; color: #fff; border: 1px solid #000; border-radius: 0; font-weight: normal; }
+        .wire-btn.outline { background: #fff; color: #000; }
+        .wire-btn.ghost { background: transparent; border: none; color: #000; border-bottom: 1px solid #000; padding-bottom: 2px; }
+        .wire-btn.pill { border-radius: 50px; }
+        .wire-btn:disabled { border: 1px dashed #ccc; color: #ccc; background: #fff; }
+        .wire-input { border: 1px solid #000; background: #fff; border-radius: 0; }
+
+        /* ========================================= */
+        /* 12. DARK STEALTH (Luxe)                   */
+        /* ========================================= */
+        .p-stealth { background: #121212; color: #e0e0e0; }
+        .stealth-btn { background: #2a2a2a; color: #fff; border: 1px solid #333; border-radius: 8px; font-weight: 300; letter-spacing: 1px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+        .stealth-btn.outline { background: transparent; border: 1px solid #555; }
+        .stealth-btn.ghost { background: transparent; border: none; box-shadow: none; color: #aaa; }
+        .stealth-btn.pill { border-radius: 50px; }
+        .stealth-btn:disabled { opacity: 0.3; }
+        .stealth-input { background: #1e1e1e; border: 1px solid #333; color: #fff; border-radius: 8px; }
+
+        /* ========================================= */
+        /* 13. PASTEL / KAWAII                       */
+        /* ========================================= */
+        .p-pastel { background: #ffe4e1; color: #5c4033; }
+        .pastel-btn { background: #ffb6c1; color: #fff; border: 3px solid #ff69b4; border-radius: 20px; font-weight: bold; box-shadow: 0 5px 0 #ff69b4; }
+        .pastel-btn.outline { background: #fff; color: #ff69b4; }
+        .pastel-btn.ghost { background: transparent; border: none; box-shadow: none; color: #ff69b4; }
+        .pastel-btn.pill { border-radius: 50px; }
+        .pastel-btn:disabled { background: #f0e6ea; border-color: #d8bfd8; box-shadow: none; transform: translateY(5px); color: #999; }
+        .pastel-input { background: #fff; border: 3px solid #ffb6c1; border-radius: 20px; color: #5c4033; }
+
+        /* ========================================= */
+        /* 14. AURORA (Holographic)                  */
+        /* ========================================= */
+        .p-holo { background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); color: #333; }
+        .holo-btn { background: linear-gradient(90deg, rgba(255,255,255,0.5), rgba(255,255,255,0.2)); border: 1px solid rgba(255,255,255,0.8); border-radius: 12px; color: #444; font-weight: 600; backdrop-filter: blur(5px); box-shadow: 0 8px 32px rgba(31,38,135,0.1); }
+        .holo-btn.outline { background: transparent; border: 2px solid #fff; }
+        .holo-btn.ghost { background: transparent; border: none; box-shadow: none; text-shadow: 0 0 5px #fff; }
+        .holo-btn.pill { border-radius: 50px; }
+        .holo-btn:disabled { opacity: 0.4; }
+        .holo-input { background: rgba(255,255,255,0.4); border: 1px solid #fff; border-radius: 12px; backdrop-filter: blur(4px); }
+
+        /* ========================================= */
+        /* 15. GRUNGE (Distressed)                   */
+        /* ========================================= */
+        .p-grunge { background: #dcd0c0; color: #373737; background-image: repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(0,0,0,0.05) 2px, rgba(0,0,0,0.05) 4px); }
+        .grunge-btn { background: #8c2727; color: #e6e6e6; border: 2px dashed #373737; border-radius: 2px; font-weight: 900; text-transform: uppercase; transform: rotate(-1deg); box-shadow: 3px 3px 0 rgba(0,0,0,0.8); }
+        .grunge-btn.outline { background: transparent; color: #8c2727; border: 3px solid #373737; transform: rotate(1deg); }
+        .grunge-btn.ghost { background: transparent; border: none; box-shadow: none; text-decoration: line-through; }
+        .grunge-btn.pill { border-radius: 30px 10px 40px 10px; } /* Forme chaotique */
+        .grunge-btn:disabled { background: #999; color: #ccc; border-style: dotted; }
+        .grunge-input { background: transparent; border: none; border-bottom: 3px solid #373737; border-radius: 0; font-weight: bold; }
+
+        /* ========================================= */
+        /* 16. FLUENT DESIGN (Windows)               */
+        /* ========================================= */
+        .p-fluent { background: #f3f3f3; color: #000; }
+        .fluent-btn { background: rgba(255,255,255,0.7); border: 1px solid rgba(0,0,0,0.1); border-bottom: 1px solid rgba(0,0,0,0.2); border-radius: 4px; color: #000; box-shadow: 0 2px 4px rgba(0,0,0,0.05); backdrop-filter: blur(20px); }
+        .fluent-btn.outline { background: transparent; border: 1px solid #0078d4; color: #0078d4; }
+        .fluent-btn.ghost { background: transparent; border: none; box-shadow: none; color: #000; }
+        .fluent-btn.pill { border-radius: 20px; }
+        .fluent-btn:disabled { background: rgba(0,0,0,0.05); color: rgba(0,0,0,0.4); border-color: transparent; }
+        .fluent-input { background: #fff; border: 1px solid rgba(0,0,0,0.1); border-bottom: 2px solid #0078d4; border-radius: 4px; }
+
+    </style>
+
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#474163">
+    <link rel="apple-touch-icon" href="icon.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+</head>
+<body>
+
+    <div class="phone">
+        <div class="tabs" id="tabs">
+            <button class="tab-btn active" onclick="scrollToPage(0)">Neumorphism</button>
+            <button class="tab-btn" onclick="scrollToPage(1)">Glassmorphism</button>
+            <button class="tab-btn" onclick="scrollToPage(2)">Skeuomorphism</button>
+            <button class="tab-btn" onclick="scrollToPage(3)">Neobrutalism</button>
+            <button class="tab-btn" onclick="scrollToPage(4)">Material</button>
+            <button class="tab-btn" onclick="scrollToPage(5)">Cyberpunk</button>
+            <button class="tab-btn" onclick="scrollToPage(6)">Flat Design</button>
+            <button class="tab-btn" onclick="scrollToPage(7)">Corporate</button>
+            <button class="tab-btn" onclick="scrollToPage(8)">Pixel Art</button>
+            <button class="tab-btn" onclick="scrollToPage(9)">Claymorphism</button>
+            <button class="tab-btn" onclick="scrollToPage(10)">Wireframe</button>
+            <button class="tab-btn" onclick="scrollToPage(11)">Stealth Dark</button>
+            <button class="tab-btn" onclick="scrollToPage(12)">Pastel Kawaii</button>
+            <button class="tab-btn" onclick="scrollToPage(13)">Aurora</button>
+            <button class="tab-btn" onclick="scrollToPage(14)">Grunge</button>
+            <button class="tab-btn" onclick="scrollToPage(15)">Fluent</button>
+        </div>
+
+        <div class="swipe-container" id="swiper">
+            
+            </div>
+    </div>
+
+    <script>
+        // La liste des styles avec leurs préfixes et titres
+        const styles = [
+            { id: 'neu', title: 'Neumorphism' },
+            { id: 'glass', title: 'Glassmorphism' },
+            { id: 'skeuo', title: 'Skeuomorphism' },
+            { id: 'brutal', title: 'Neobrutalism' },
+            { id: 'mat', title: 'Material Design' },
+            { id: 'cyber', title: 'Cyberpunk' },
+            { id: 'flat', title: 'Flat Design' },
+            { id: 'corp', title: 'Corporate' },
+            { id: 'pixel', title: 'Pixel Art' },
+            { id: 'clay', title: 'Claymorphism' },
+            { id: 'wire', title: 'Wireframe' },
+            { id: 'stealth', title: 'Stealth Dark' },
+            { id: 'pastel', title: 'Pastel Kawaii' },
+            { id: 'holo', title: 'Aurora Holo' },
+            { id: 'grunge', title: 'Grunge' },
+            { id: 'fluent', title: 'Fluent' }
+        ];
+
+        const swiper = document.getElementById('swiper');
+
+        // Génération automatique des pages pour éviter un HTML de 2000 lignes
+        styles.forEach(style => {
+            const pageHTML = `
+                <div class="page p-${style.id}">
+                    <h2 style="margin-top:0;">${style.title}</h2>
+                    
+                    <span class="legend">Primary (Plein)</span>
+                    <button class="btn-base ${style.id}-btn">Envoyer</button>
+
+                    <span class="legend">Outline (Contour)</span>
+                    <button class="btn-base ${style.id}-btn outline">Annuler</button>
+
+                    <span class="legend">Ghost (Texte seul)</span>
+                    <button class="btn-base ${style.id}-btn ghost">En savoir plus</button>
+
+                    <span class="legend">Pill (Arrondi)</span>
+                    <button class="btn-base ${style.id}-btn pill">S'abonner</button>
+
+                    <span class="legend">Icon + Text</span>
+                    <button class="btn-base ${style.id}-btn"><span>🛒</span> Acheter</button>
+
+                    <span class="legend">FAB (Floating)</span>
+                    <button class="btn-base btn-fab ${style.id}-btn">➕</button>
+
+                    <span class="legend">Disabled (Désactivé)</span>
+                    <button class="btn-base ${style.id}-btn" disabled>Non dispo</button>
+
+                    <span class="legend">Input Standard</span>
+                    <input type="text" class="input-base ${style.id}-input" placeholder="Tapez ici...">
+                </div>
+            `;
+            swiper.insertAdjacentHTML('beforeend', pageHTML);
+        });
+
+        // GESTION DU SCROLL ET DES ONGLETS
+        const tabs = document.querySelectorAll('.tab-btn');
+        const pages = document.querySelectorAll('.page');
+
+        function scrollToPage(index) {
+            const scrollLeft = pages[index].offsetLeft;
+            swiper.scrollTo({ left: scrollLeft, behavior: 'smooth' });
+        }
+
+        swiper.addEventListener('scroll', () => {
+            let index = Math.round(swiper.scrollLeft / swiper.clientWidth);
+            if(index < 0) index = 0;
+            if(index >= tabs.length) index = tabs.length - 1;
+
+            tabs.forEach(t => t.classList.remove('active'));
+            tabs[index].classList.add('active');
+
+            const activeTab = tabs[index];
+            const tabContainer = document.getElementById('tabs');
+            tabContainer.scrollTo({
+                left: activeTab.offsetLeft - (tabContainer.clientWidth / 2) + (activeTab.clientWidth / 2),
+                behavior: 'smooth'
+            });
+        });
+    </script>
+
+    <style>
+        #pwaInstallBtn {
+            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+            background: #474163; color: white; border: none; padding: 12px 24px;
+            border-radius: 50px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            display: none; z-index: 10000; font-weight: bold; cursor: pointer;
+        }
+    </style>
+    <button id="pwaInstallBtn">Installer l'application</button>
+    <script>
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            document.getElementById('pwaInstallBtn').style.display = 'block';
+        });
+        document.getElementById('pwaInstallBtn').addEventListener('click', async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                deferredPrompt = null;
+                document.getElementById('pwaInstallBtn').style.display = 'none';
+            }
+        });
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js').catch(err => console.log('SW error:', err));
+            });
+        }
+    </script>
+</body>
+</html>
